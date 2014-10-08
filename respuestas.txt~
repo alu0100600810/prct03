@@ -34,3 +34,340 @@ program resumes here. Value of x is: changed.
 la diferencia es que pry no devuelve el valor de retorno, mientras el iteractivo si lo devuelve.
 
  
+34. ¿Qué diferencia hay entre "\t\n" y ’\t\n’?
+
+"\t\n"-->  te hace un tabulador y salto de linea
+'\t\n' --> te muestra literalmente.
+
+35. ¿Cómo funciona %q? ¿Qué es %q{hello world\n}? ¿Qué es %q{’a’ ’b’ ’c’}?
+
+%q{hello world\n} --> es lo mismo que las comillas simples.
+%q{’a’ ’b’ ’c’} --> es lo mismo que las comillas simples.
+
+36. ¿Cómo funciona %Q? ¿Qué es %Q{hello world\n}? ¿Qué es %Q{"a" "b" "c"}?
+
+%Q{hello world\n}--> es lo mismo que las comillas dobles."hello world\n"
+%Q{"a" "b" "c"} --> 'a' 'b' 'c'
+
+37. ¿Qué queda en c?
+>> a = 4
+=> 4
+>> b = 2
+=> 2
+>> c = <<HERE
+0:0:0" --#{a}--
+0:0:0" --#{b}--
+0:0:0" HERE
+
+--> --4--
+    --2--
+
+38. ¿Qué queda en c?
+0:0:0> a = 4
+=> 4
+0:0:0> b =2
+=> 2
+0:0:0> c = <<’HERE’
+0:0:0’ --#{a}--
+0:0:0’ --#{b}--
+0:0:0’ HERE
+
+--> --#{a}--
+    --#{b}--
+no interpreta los valores.   
+
+39. s = "hello". ¿Cuál es el valor de las siguientes expresiones?
+
+s[0,2] --> => "he" 
+s[-1,1] -->  => "o" 
+s[0,10] -->  => "hello"
+
+40. ¿Qué queda en g?
+>> g = "hello"
+=> "hello"
+>> g << " world"
+
+-->  => "helloworld" estamos poniendo el "world" por el final de lo que contiene g.
+
+41. ¿Qué queda en e?
+>> e = ’.’*3
+
+--> "..." lo que hace que multiplica *3 lo que esta en las comillas simples.
+
+42. ¿Cuál es el resultado?
+>> a = 1
+=> 1
+>> "#{a=a+1} "*3
+
+-->  => "2 2 2 "  lo que hace que primero hace lo q esta dentro de las llaves y despues multiplica *3 lo que esta dentro.
+
+
+43. ¿Qué es esto? %w[this is a test]
+
+-->  => ["this", "is", "a", "test"] devuelve un array.
+
+44. ¿Qué es esto? %w[\t \n]
+
+-->  => ["\\t\\n"] lo trata como si fuese las comillas simples
+
+45. ¿Qué es esto? %W[\t \n]
+
+--> lo trata como comillas dobles, hace un tabulador y salto de linea
+
+46. ¿Qué contiene nils?
+nils = Array.new(3)
+
+--> => [nil, nil, nil] crea un array de 3 pocisiones vacia.
+
+47. ¿Qué contiene zeros?
+zeros = Array.new(3, 0)
+
+-->  => [0, 0, 0] crea un array de 0.
+
+48. ¿Qué queda en b?
+
+>> x = [[1,2],[3,4]]
+=> [[1, 2], [3, 4]]
+>> b = Array.new(x)
+
+-->  => [[1, 2], [3, 4]] 
+
+49. ¿Qué queda en c?
+>> c = Array.new(3) { |i| 2*i }
+
+-->  => [0, 2, 4]
+
+50. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> a = (’a’..’e’).to_a
+=> ["a", "b", "c", "d", "e"]
+>> a[1,1]
+=>  ["b"]
+>> a[-2,2]
+=> ["d", "e"]
+>> a[0..2]
+=> ["a", "b", "c"] 
+>> a[0...1]
+=> ["a"] 
+>> a[-2..-1]
+=> ["d", "e"] 
+
+51. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> a
+=> ["a", "b", "c", "d", "e"]
+>> a[0,2] = %w{A B}
+=> ["A", "B"]
+>> a
+=> ["A", "B", "c", "d", "e"] 
+>> a[2..5] = %w{C D E}
+=> ["C", "D", "E"]
+>> a
+=> ["A", "B", "C", "D", "E"]
+>> a[0,0] = [1,2,3]
+=> [1, 2, 3]
+>> a
+=> [1, 2, 3, "A", "B", "C", "D", "E"]
+>> a[0,2] = []
+=> []
+>> a
+=> [3, "A", "B", "C", "D", "E"]
+>> a[-1,1] = [ ’Z’ ]
+=> ["Z"]
+>> a
+=> [3, "A", "B", "C", "D", "Z"]
+>> a[-2,2] = nil
+=> nil
+>> a
+=> [3, "A", "B", "C", nil]
+
+52. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> a = (1...4).to_a
+=> [1, 2, 3]
+>> a = a + [4, 5]
+=> [1, 2, 3, 4, 5] 
+>> a += [[6, 7, 8]]
+=> [1, 2, 3, 4, 5, [6, 7, 8]] 
+>> a = a + 9
+=> ???
+
+53. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> x = %w{a b c b a}
+=> ["a", "b", "c", "b", "a"] 
+>> x = x - %w{b c d}
+=> ["a", "a"] 
+
+54. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> z = [0]*8
+=> [0, 0, 0, 0, 0, 0, 0, 0] 
+
+
+55. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> a = []
+=> []
+>> a << 1
+=> [1] 
+>> a << 2 << 3
+=> [1, 2, 3] 
+>> a << [4, 5, 6]
+=> [1, 2, 3, [4, 5, 6]]
+>> a.concat [7, 8]
+=> [1, 2, 3, [4, 5, 6], 7, 8] 
+
+56. ¿Cuál es el resultado de cada una de estas operaciones?
+
+>> a = [1, 1, 2, 2, 3, 3, 4]
+=> [1, 1, 2, 2, 3, 3, 4]
+>> b = [5, 5, 4, 4, 3, 3, 2]
+=> [5, 5, 4, 4, 3, 3, 2]
+>> c = a | b
+=> [1, 2, 3, 4, 5]
+>> d = b | a
+=> [5, 4, 3, 2, 1] 
+>> e = a & b
+=> [2, 3, 4]
+>> f = b & a
+=> [4, 3, 2]
+
+57. ¿Qué resultados dan las siguientes operaciones?
+
+>> a = 1..10
+=> 1..10
+>> a.class
+=> Range
+>> a.to_a
+=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
+>> b = 1...10
+=> 1....10
+>> b.to_a
+=> [1, 2, 3, 4, 5, 6, 7, 8, 9]  
+>> b.include? 10
+=> false
+>> b.include? 8
+=> true
+>> b.step(2) {|x| print "#{x} " }
+=> 1 3 5 7 9  => 1...10 
+>> 1..3.to_a
+=> devuelve error porque el metodo to_a, no esta definido para el metodo fixnum.
+
+58. ¿Qué resultados dan las siguientes operaciones?
+
+>> r = 0...100
+=> 0....100
+>> r.member? 50
+=> true
+>> r.include? 99.9
+=> true
+>> r.member? 99.9
+=> true
+
+59. ¿Qué resultados dan las siguientes operaciones?
+
+>> true.class
+=> TrueClass
+>> false.class
+=> FalseClass
+>> puts "hello" if 0
+=> hello
+>> puts "hello" if nil
+=> nil
+>> puts "hello" if ""
+=> hello
+
+60. ¿Qué resultados dan las siguientes operaciones?
+>> x = :sym
+=> :sym
+>> x.class
+=> Symbol
+>> x == ’sym’
+=> false
+>> x == :sym
+=> true
+>> z = :’a long symbol’
+=> :"a long symbol"
+>> z.class
+=> Symbol
+>> x == ’sym’.to_sym
+=> true
+>> x.to_s == ’sym’
+=> true
+
+61. ¿Qué resultados se dan?
+
+>> s = "Ruby"
+=> "Ruby"
+>> t = s
+=> "Ruby"
+>> t[-1] = ""
+=> ""
+>> print s
+Rub => nil 
+>> t = "Java"
+=> "Java"
+>> print s, t
+RubJava => nil
+
+62. ¿Cuál es el resultado?
+
+>> "%d %s" % [3, "rubies"]
+=> "3 rubies"
+
+63. ¿Cuáles son los resultados?
+
+>> x, y = 4, 5
+=> [4, 5] 
+>> z = x > y ? x : y
+=> 5
+>> x,y,z = [1,2,3]
+=> [1, 2, 3]
+
+64. ¿Qué resultados dan las siguientes operaciones?
+
+>> x = { :a => 1, :b => 2 }
+=> {:b=>2, :a=>1}
+>> x.keys
+=> [:a, :b] 
+>> x.values
+=> [1, 2]
+>> x[:c] = 3
+=> 3
+>> x
+=> {:a=>1, :b=>2, :c=>3} 
+>> x.delete(’a’)
+=> nil
+>> x
+=> {:a=>1, :b=>2, :c=>3} 
+>> x.delete(:a)
+=> 1
+>> x
+=> {:b=>2, :c=>3}
+>> x = { :a => 1, :b => 2, :c => 4 }
+=> {:b=>2, :c=>4, :a=>1}
+>> x.delete_if { |k,v| v % 2 == 0 }
+=> {:a=>1}
+>> x
+=> {:a=>1}
+
+65. ¿Qué hace la siguiente sentencia? counts = Hash.new(0) ¿Qué diferencia hay con la asignación counts = {} ?
+
+--> counts = Hash.new(0) los crea con 0 objeto
+--> counts = {} lo crea vacio
+
+66. ¿Qué retorna esta expresión regular? ’hello world, hello LPP’.scan /\w+/
+
+
+
+
+
+
+
+
+
+
+
+
+
